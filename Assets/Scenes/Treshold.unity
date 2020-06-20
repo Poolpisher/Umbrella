@@ -123,14 +123,13 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!43 &287020720
+--- !u!43 &18456779
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -287,6 +286,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
+  serializedVersion: 10
 --- !u!1 &474156753
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,8 +330,8 @@ MonoBehaviour:
   - {x: 0.94565433, y: 4.956739, z: 0}
   - {x: -1.1316237, y: 5.578682, z: 0}
   m_ShapePathHash: -590604360
-  m_Mesh: {fileID: 287020720}
-  m_InstanceId: 31936
+  m_Mesh: {fileID: 18456779}
+  m_InstanceId: 31604
 --- !u!114 &474156755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,7 +558,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510344505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.03, y: 3.48, z: 0}
+  m_LocalPosition: {x: -1.2, y: -2.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 632622268}
@@ -3096,7 +3096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883763634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.03, y: 5.6445627, z: -10}
+  m_LocalPosition: {x: -1.2, y: -0.7354374, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1266964939}
@@ -3633,7 +3633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645569447}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.9548695, y: 5.644347, z: -10}
+  m_LocalPosition: {x: -1.2, y: -0.7354374, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
