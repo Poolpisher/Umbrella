@@ -38,7 +38,7 @@ public class UmbrellaBehaviour : MonoBehaviour
         var aimAngle = Mathf.Atan2(-inputValue.x, inputValue.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
     }
-
+    //Collision du parapluie sur un ennemi
     private void OnCollisionEnter2D(Collision2D other)
     {
         var NinputValue = inputValue * -1;
@@ -46,7 +46,8 @@ public class UmbrellaBehaviour : MonoBehaviour
         {
             var CollisionBumpValue = other.gameObject.GetComponent<EnnemyBehaviour>().BumpValue;
             FOX.AddForce(NinputValue * CollisionBumpValue, ForceMode2D.Impulse);
-            Debug.Log("test");
+            //Lance la coroutine Cooldown de EnnemyBehaviour (pour désactiver la hitbox de l'ennemi)
+            other.gameObject.GetComponent<EnnemyBehaviour>().LauchCooldown();
         }
     }
 }

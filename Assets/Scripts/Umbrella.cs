@@ -47,17 +47,17 @@ public class Umbrella : MonoBehaviour
         var aimAngle = Mathf.Atan2(rightStickDirection2.x, rightStickDirection2.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
     }
-
+    //Active le saut lors d'un contact parapluie-ennemie
     public void Jump(int force)
     {
         Parent.velocity= new Vector2(Parent.velocity.x, 0);
         Parent.AddForce(Vector2.up * force);
+        //lance en public la CoroutineTest
         StartCoroutine(CoroutineTest());
     }
-    
+    //Désactive la hitbox du parapluie
     IEnumerator CoroutineTest()
     {
-        
         var desactive = gameObject.GetComponent<BoxCollider2D>();
         desactive.enabled = false;
         var compte = 0;
@@ -67,5 +67,6 @@ public class Umbrella : MonoBehaviour
         }
         desactive.enabled = true;
     }
+
         
 }
