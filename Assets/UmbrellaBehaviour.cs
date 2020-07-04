@@ -46,6 +46,7 @@ public class UmbrellaBehaviour : MonoBehaviour
         {
             var CollisionBumpValue = other.gameObject.GetComponent<EnnemyBehaviour>().BumpValue;
             FOX.AddForce(NinputValue * CollisionBumpValue, ForceMode2D.Impulse);
+            Debug.Log("test");
         }
     }
 }

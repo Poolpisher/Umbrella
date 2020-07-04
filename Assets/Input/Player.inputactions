@@ -131,6 +131,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "left stick",
+                    "id": "623c1e4c-d378-4fcc-9247-78860e8508fa",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "771347a4-3212-487d-921d-42fe60548356",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "72391f0a-2f32-420e-96df-340909b5b25b",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "ca6e0713-dc6b-408c-bd8b-76dcd204f0df",
                     "path": "<Keyboard>/space",
