@@ -15,7 +15,7 @@ public class playerBehaviour : MonoBehaviour
     private Player playerInput;
     private float inputValue;
     private Rigidbody2D RB2D;
-    private bool CanJump;
+    public bool CanJump;
     private void OnEnable()
     {
         playerInput = new Player();

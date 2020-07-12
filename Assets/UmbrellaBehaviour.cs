@@ -8,6 +8,7 @@ public class UmbrellaBehaviour : MonoBehaviour
     private Player playerInput;
     private Vector2 inputValue;
     private Rigidbody2D FOX;
+    private bool CanJump;
     private void OnEnable()
     {
         playerInput = new Player();
@@ -41,6 +42,7 @@ public class UmbrellaBehaviour : MonoBehaviour
     //Collision du parapluie sur un ennemi
     private void OnCollisionEnter2D(Collision2D other)
     {
+        //CanJump = false;
         var NinputValue = inputValue * -1;
         if(other.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {
