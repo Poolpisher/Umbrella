@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Niveau.unity
     guid: 6ecbe4a69181d4a4d80c924f98cb27ad
+  - enabled: 1
+    path: Assets/Scenes/HUB.unity
+    guid: f6a7d55ca68c29c46af90c4cd3e5bd92
+  - enabled: 1
+    path: Assets/Scenes/Treshold.unity
+    guid: 45d9591686b7cee4d82ee97cbc0326a4
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: c9ebca5a00f46f34c8106da9dd45829f
+  - enabled: 1
+    path: Assets/Scenes/LaggyScene.unity
+    guid: a05f406610fb7734996b9ed02d34fb10
   m_configObjects: {}
