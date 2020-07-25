@@ -42,7 +42,6 @@ public class UmbrellaBehaviour : MonoBehaviour
     //Collision du parapluie sur un ennemi
     private void OnCollisionEnter2D(Collision2D other)
     {
-        //CanJump = false;
         var NinputValue = inputValue * -1;
         if(other.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {

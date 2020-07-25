@@ -10,7 +10,6 @@ public class playerBehaviour : MonoBehaviour
     [SerializeField] private int JumpForce;
     [Header("Miscellaneous")]
     [SerializeField] private LayerMask ground;
-
     private Animator myAnimator;
     private Player playerInput;
     private float inputValue;
@@ -37,7 +36,7 @@ public class playerBehaviour : MonoBehaviour
     }
     private void Jump(InputAction.CallbackContext obj)
     {
-        if (CanJump) {
+        if (CanJump && RB2D.velocity.y < 2) {
            CanJump = false;
             var JumpDirection = Vector2.up * JumpForce;
             RB2D.AddForce(JumpDirection, ForceMode2D.Impulse);
@@ -74,11 +73,11 @@ public class playerBehaviour : MonoBehaviour
             x = inputValue,
             y = 0};
         //RB2D.velocity = V2*Speed*Time.fixedDeltaTime;
-        if (RB2D.velocity.sqrMagnitude < MaxSpeed)
+        if (RB2D.velocity.x < MaxSpeed)
         {
             RB2D.AddForce(V2 * Speed);
         }
-        myAnimator.SetBool("JumpDOWN", RB2D.velocity.y < -0.1f);
-        myAnimator.SetBool("JumpUP", RB2D.velocity.y > 0.1f);
+        myAnimator.SetBool("JumpDOWN", RB2D.velocity.y < -0.0001f);
+        myAnimator.SetBool("JumpUP", RB2D.velocity.y > 0.0001f);
     }
 }
