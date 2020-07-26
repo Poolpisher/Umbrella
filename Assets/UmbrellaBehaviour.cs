@@ -45,10 +45,10 @@ public class UmbrellaBehaviour : MonoBehaviour
         var NinputValue = inputValue * -1;
         if(other.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {
-            var CollisionBumpValue = other.gameObject.GetComponent<EnnemyBehaviour>().BumpValue;
+            var CollisionBumpValue = other.gameObject.GetComponent<BumpBehaviour>().BumpValue;
             FOX.AddForce(NinputValue * CollisionBumpValue, ForceMode2D.Impulse);
             //Lance la coroutine Cooldown de EnnemyBehaviour (pour désactiver la hitbox de l'ennemi)
-            other.gameObject.GetComponent<EnnemyBehaviour>().LauchCooldown();
+            other.gameObject.GetComponent<BumpBehaviour>().LauchCooldown();
         }
     }
 }

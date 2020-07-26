@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemyBehaviour : MonoBehaviour
+public class BumpBehaviour : MonoBehaviour
 {
     [SerializeField] private LayerMask ground;
     private Animator myAnimator;
@@ -40,7 +40,8 @@ public class EnnemyBehaviour : MonoBehaviour
     {
         if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.9f)
         {
-            myAnimator.SetBool("Death", true);
+            myAnimator.SetBool("Bump", true);
+            myAnimator.SetBool("Bump", false);
         }
         else
         {
