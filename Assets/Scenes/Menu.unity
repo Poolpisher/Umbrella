@@ -663,7 +663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d865faaf6091d6c418384c5fb5264cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingScreen: {fileID: 1019921582}
+  loadingScreen: {fileID: 2387463838284959638, guid: afbb9798d32d87047ad6060b011f0a0e,
+    type: 3}
   sceneToLoadName: Treshold
 --- !u!4 &1680498005
 Transform:
