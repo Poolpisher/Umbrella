@@ -42,7 +42,7 @@ public class SceneLoader : MonoBehaviour
             if (loading.progress >= 0.9f)
             {
                 // Launch the disappear animation
-                loadingAnimator.SetTrigger("Disappearing_Loading");
+                loadingAnimator.SetTrigger("Disapear");
                 // Make the new scene visible
                 loading.allowSceneActivation = true;
             }
