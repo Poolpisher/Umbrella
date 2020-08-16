@@ -22,6 +22,8 @@ public class playerBehaviour : MonoBehaviour
         playerInput.Main.Move.performed += Move;
         playerInput.Main.Move.canceled += Stop;
         playerInput.Main.Jump.performed += Jump;
+        //playerInput.Main.Shoot.performed += Shoot;
+        //playerInput.Main.Pause.performed += Pause;
     }
 
     private void Move(InputAction.CallbackContext obj)
@@ -37,7 +39,7 @@ public class playerBehaviour : MonoBehaviour
     private void Jump(InputAction.CallbackContext obj)
     {
         if (CanJump && RB2D.velocity.y < 2) {
-           CanJump = false;
+            CanJump = false;
             var JumpDirection = Vector2.up * JumpForce;
             RB2D.AddForce(JumpDirection, ForceMode2D.Impulse);
             myAnimator.SetBool("Grounded", false);
@@ -46,14 +48,14 @@ public class playerBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.9f)
+        if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.99999f)
             {
             CanJump = true;
             myAnimator.SetBool("Grounded", true);
         }
         else
         {
-            //Debug.Log(other.contacts[0].normal);
+            myAnimator.SetBool("Death", true);
         }
     }
 
