@@ -47,6 +47,7 @@ public class Umbrella : MonoBehaviour
         var aimAngle = Mathf.Atan2(rightStickDirection2.x, rightStickDirection2.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.forward);
     }
+
     //Active le saut lors d'un contact parapluie-ennemie
     public void Jump(int force)
     {
