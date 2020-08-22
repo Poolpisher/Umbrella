@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Umbrella
+  - HUD
+  - Start
+  - Bullet
+  - Bullet_Charged
   layers:
   - Default
   - TransparentFX

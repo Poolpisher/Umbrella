@@ -8,13 +8,20 @@ public class playerBehaviour : MonoBehaviour
     [SerializeField] private int Speed;
     [SerializeField] private int MaxSpeed;
     [SerializeField] private int JumpForce;
+    [SerializeField] Animator[] AnimatorsToSaveHUD;
+    private GameObject StartMenu;
+    private GameObject HUDMenu;
+    private GameObject Bullet;
     [Header("Miscellaneous")]
     [SerializeField] private LayerMask ground;
     private Animator myAnimator;
     private Player playerInput;
     private float inputValue;
     private Rigidbody2D RB2D;
+    private AnimatorStateInfo[] m_Animator;
+    private bool IsPause;
     public bool CanJump;
+    public bool CanShoot;
     private void OnEnable()
     {
         playerInput = new Player();
@@ -22,14 +29,36 @@ public class playerBehaviour : MonoBehaviour
         playerInput.Main.Move.performed += Move;
         playerInput.Main.Move.canceled += Stop;
         playerInput.Main.Jump.performed += Jump;
-        //playerInput.Main.Shoot.performed += Shoot;
-        //playerInput.Main.Pause.performed += Pause;
+        playerInput.Main.Pause.performed += Pause;
     }
 
     private void Move(InputAction.CallbackContext obj)
     {
         inputValue = obj.ReadValue<float>();
         myAnimator.SetBool("running", true);
+    }
+    private void Pause(InputAction.CallbackContext obj)
+    {
+        IsPause = !IsPause;
+        if (IsPause)
+        {
+            for(var i=0; i<AnimatorsToSaveHUD.Length; i++)
+            {
+                m_Animator[i] = AnimatorsToSaveHUD[i].GetCurrentAnimatorStateInfo(0);
+            }
+            //desactive HUD
+            GameObject.FindGameObjectWithTag("HUD").SetActive(false);
+            //active canvas pause
+            StartMenu.SetActive(true);
+        }
+        else
+        {
+            //desactive canvas pause
+            GameObject.FindGameObjectWithTag("Start").SetActive(false);
+            //active HUD
+            //applique Animator m_Animator
+
+        }
     }
     private void Stop(InputAction.CallbackContext obj)
     {
@@ -51,7 +80,9 @@ public class playerBehaviour : MonoBehaviour
         if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.99999f)
             {
             CanJump = true;
+            CanShoot = true;
             myAnimator.SetBool("Grounded", true);
+            Bullet.SetActive(true);
         }
         else
         {
@@ -62,9 +93,13 @@ public class playerBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myAnimator = GetComponent<Animator>();
-        CanJump = true;
-        RB2D = GetComponent<Rigidbody2D>();
+        Bullet = GameObject.FindGameObjectWithTag("Bullet");
+        StartMenu = GameObject.FindGameObjectWithTag("Start");
+        StartMenu.SetActive(false);
+            myAnimator = GetComponent<Animator>();
+            m_Animator = new AnimatorStateInfo[AnimatorsToSaveHUD.Length];
+            CanJump = true;
+            RB2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
