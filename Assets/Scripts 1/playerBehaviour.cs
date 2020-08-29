@@ -47,15 +47,18 @@ public class playerBehaviour : MonoBehaviour
                 m_Animator[i] = AnimatorsToSaveHUD[i].GetCurrentAnimatorStateInfo(0);
             }
             //desactive HUD
-            GameObject.FindGameObjectWithTag("HUD").SetActive(false);
+            HUDMenu.SetActive(false);
+            Time.timeScale = 0f;
             //active canvas pause
             StartMenu.SetActive(true);
         }
         else
         {
             //desactive canvas pause
-            GameObject.FindGameObjectWithTag("Start").SetActive(false);
+            StartMenu.SetActive(false);
+            Time.timeScale = 1f;
             //active HUD
+            HUDMenu.SetActive(true);
             //applique Animator m_Animator
 
         }
@@ -95,6 +98,7 @@ public class playerBehaviour : MonoBehaviour
     {
         Bullet = GameObject.FindGameObjectWithTag("Bullet");
         StartMenu = GameObject.FindGameObjectWithTag("Start");
+        HUDMenu = GameObject.FindGameObjectWithTag("HUD");
         StartMenu.SetActive(false);
             myAnimator = GetComponent<Animator>();
             m_Animator = new AnimatorStateInfo[AnimatorsToSaveHUD.Length];
@@ -116,5 +120,10 @@ public class playerBehaviour : MonoBehaviour
         }
         myAnimator.SetBool("JumpDOWN", RB2D.velocity.y < -0.0001f);
         myAnimator.SetBool("JumpUP", RB2D.velocity.y > 0.0001f);
+    }
+
+    void OnDestroy()
+    {
+        playerInput.Disable();
     }
 }

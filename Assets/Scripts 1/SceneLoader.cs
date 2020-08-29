@@ -23,6 +23,7 @@ public class SceneLoader : MonoBehaviour
     /// <returns></returns>
     private IEnumerator LoadSceneCoroutine()
     {
+        Time.timeScale = 1f;
         // Making the loading screen appear
         var loadingScreenInstance = Instantiate(loadingScreen);
         // Making the loading screen persistent after we unloaded the scene

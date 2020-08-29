@@ -82,4 +82,8 @@ public class UmbrellaBehaviour : MonoBehaviour
             other.gameObject.GetComponent<BumpBehaviour>().LauchCooldown();
         }
     }
+    void OnDestroy()
+    {
+        playerInput.Disable();
+    }
 }
