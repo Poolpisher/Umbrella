@@ -26,6 +26,7 @@ public class BumpBehaviour : MonoBehaviour
     //Créer le IEnumerator Cooldown en privé
     private IEnumerator Cooldown()
     {
+        //désactive la hitbox d'un ennemi
         var timer = 0;
         GetComponent<Collider2D>().enabled = false;
         while (timer != 10)
@@ -36,16 +37,19 @@ public class BumpBehaviour : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
     }
 
+    //Sur collision entre l'ennemi et un Collider 2D
     private void OnCollisionEnter2D(Collision2D other)
     {
+        //Collsion avec le sol
         if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.9f)
         {
             myAnimator.SetBool("Bump", true);
-            myAnimator.SetBool("Bump", false);
         }
         else
         {
-            //Debug.Log(other.contacts[0].normal);
+            ///Erreur régler : Object reference not set an instance of an object
+            myAnimator.SetBool("Bump", true);
+            myAnimator.SetBool("Bump", false);
         }
     }
 }

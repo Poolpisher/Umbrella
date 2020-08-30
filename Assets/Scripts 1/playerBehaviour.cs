@@ -9,21 +9,28 @@ public class playerBehaviour : MonoBehaviour
     [SerializeField] private int MaxSpeed;
     [SerializeField] private int JumpForce;
     [SerializeField] Animator[] AnimatorsToSaveHUD;
+    [SerializeField] private LayerMask ground;
+    //HUD
     private GameObject StartMenu;
     private GameObject HUDMenu;
+    private GameObject GameOverMenu;
     private GameObject Bullet;
-    [Header("Miscellaneous")]
-    [SerializeField] private LayerMask ground;
+    //Animator
     private Animator myAnimator;
+    private AnimatorStateInfo[] m_Animator;
+    //InputAction
     private Player playerInput;
     private float inputValue;
+    //RigidBody
     private Rigidbody2D RB2D;
-    private AnimatorStateInfo[] m_Animator;
+    //Bool
     private bool IsPause;
     public bool CanJump;
     public bool CanShoot;
+    
     private void OnEnable()
     {
+        //Activation des input du joueur
         playerInput = new Player();
         playerInput.Enable();
         playerInput.Main.Move.performed += Move;
@@ -32,78 +39,103 @@ public class playerBehaviour : MonoBehaviour
         playerInput.Main.Pause.performed += Pause;
     }
 
-    private void Move(InputAction.CallbackContext obj)
-    {
-        inputValue = obj.ReadValue<float>();
-        myAnimator.SetBool("running", true);
-    }
-    private void Pause(InputAction.CallbackContext obj)
-    {
-        IsPause = !IsPause;
-        if (IsPause)
+    //Input action
+        //Déplacement du joueur: Stick gauche/zqsd
+        private void Move(InputAction.CallbackContext obj)
         {
-            for(var i=0; i<AnimatorsToSaveHUD.Length; i++)
+            inputValue = obj.ReadValue<float>();
+            myAnimator.SetBool("running", true);
+        }
+        //Arret du déplacement du joueur
+        private void Stop(InputAction.CallbackContext obj)
+        {
+            inputValue = 0;
+            myAnimator.SetBool("running", false);
+        }
+        // Start/Escape: Pause
+        private void Pause(InputAction.CallbackContext obj)
+        {
+            //Change la valeur de la pause
+            IsPause = !IsPause;
+            if (IsPause)
             {
-                m_Animator[i] = AnimatorsToSaveHUD[i].GetCurrentAnimatorStateInfo(0);
+                //Sauvegarde l'état des animations dans un tableau
+                for(var i=0; i<AnimatorsToSaveHUD.Length; i++)
+                {
+                    m_Animator[i] = AnimatorsToSaveHUD[i].GetCurrentAnimatorStateInfo(0);
+                }
+                //desactive HUD
+                HUDMenu.SetActive(false);
+                //arrete le temps
+                Time.timeScale = 0f;
+                //active canvas pause
+                StartMenu.SetActive(true);
             }
-            //desactive HUD
-            HUDMenu.SetActive(false);
-            Time.timeScale = 0f;
-            //active canvas pause
-            StartMenu.SetActive(true);
+            else
+            {
+                //desactive canvas pause
+                StartMenu.SetActive(false);
+                Time.timeScale = 1f;
+                //active HUD
+                HUDMenu.SetActive(true);
+                //applique Animator m_Animator
+
+            }
         }
-        else
+        // L1/Espace: Saut
+        private void Jump(InputAction.CallbackContext obj)
         {
-            //desactive canvas pause
-            StartMenu.SetActive(false);
-            Time.timeScale = 1f;
-            //active HUD
-            HUDMenu.SetActive(true);
-            //applique Animator m_Animator
-
+            if (CanJump && RB2D.velocity.y < 2) {
+                CanJump = false;
+                var JumpDirection = Vector2.up * JumpForce;
+                RB2D.AddForce(JumpDirection, ForceMode2D.Impulse);
+                myAnimator.SetBool("Grounded", false);
+            }
         }
-    }
-    private void Stop(InputAction.CallbackContext obj)
-    {
-        inputValue = 0;
-        myAnimator.SetBool("running", false);
-    }
-    private void Jump(InputAction.CallbackContext obj)
-    {
-        if (CanJump && RB2D.velocity.y < 2) {
-            CanJump = false;
-            var JumpDirection = Vector2.up * JumpForce;
-            RB2D.AddForce(JumpDirection, ForceMode2D.Impulse);
-            myAnimator.SetBool("Grounded", false);
-        }
-    }
-
+    //Sur collision entre le joueur et un Collider 2D
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.99999f)
+        //Collsion avec le sol
+        if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.9f)
             {
             CanJump = true;
             CanShoot = true;
-            myAnimator.SetBool("Grounded", true);
             Bullet.SetActive(true);
+            myAnimator.SetBool("Grounded", true);
         }
+        //Collision avec un ennemi
         else
         {
+            //Désactivation de toute les animations pour laisser celle de mort
+            myAnimator.SetBool("Grounded", false);
+            myAnimator.SetBool("Running", false);
+            myAnimator.SetBool("JumpUP", false);
+            myAnimator.SetBool("JumpDOWN", false);
             myAnimator.SetBool("Death", true);
+            //desactive HUD
+            HUDMenu.SetActive(false);
+            //active Game Over
+            GameOverMenu.SetActive(true);
+            //arrete le temps
+            Time.timeScale = 0f;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        CanJump = true;
+        RB2D = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
+        //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
         Bullet = GameObject.FindGameObjectWithTag("Bullet");
         StartMenu = GameObject.FindGameObjectWithTag("Start");
+        GameOverMenu = GameObject.FindGameObjectWithTag("GameOver");
+        GameOverMenu.SetActive(false);
         HUDMenu = GameObject.FindGameObjectWithTag("HUD");
         StartMenu.SetActive(false);
-            myAnimator = GetComponent<Animator>();
-            m_Animator = new AnimatorStateInfo[AnimatorsToSaveHUD.Length];
-            CanJump = true;
-            RB2D = GetComponent<Rigidbody2D>();
+        //Sauvegarde l'état des animations du HUD
+        m_Animator = new AnimatorStateInfo[AnimatorsToSaveHUD.Length];
     }
 
     // Update is called once per frame
@@ -113,7 +145,7 @@ public class playerBehaviour : MonoBehaviour
         var V2 = new Vector2 {
             x = inputValue,
             y = 0};
-        //RB2D.velocity = V2*Speed*Time.fixedDeltaTime;
+        //Déplace le joueur de la vitesse minimal à la maximal
         if (RB2D.velocity.x < MaxSpeed)
         {
             RB2D.AddForce(V2 * Speed);
@@ -124,6 +156,7 @@ public class playerBehaviour : MonoBehaviour
 
     void OnDestroy()
     {
+        //Détruit les input à chaque rechargement de scene
         playerInput.Disable();
     }
 }

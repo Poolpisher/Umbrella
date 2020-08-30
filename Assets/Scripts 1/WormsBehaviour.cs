@@ -9,7 +9,9 @@ public class WormsBehaviour : MonoBehaviour
     private Vector2 velocity;
     private Rigidbody2D WormsRB2D;
     private Animator myAnimator;
+    //Raycast
     private float t = 0.0f;
+    //Bool
     private bool moving = false;
     // Start is called before the first frame update
     void Start()

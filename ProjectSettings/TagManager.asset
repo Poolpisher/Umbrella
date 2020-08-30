@@ -9,6 +9,7 @@ TagManager:
   - Start
   - Bullet
   - Bullet_Charged
+  - GameOver
   layers:
   - Default
   - TransparentFX
