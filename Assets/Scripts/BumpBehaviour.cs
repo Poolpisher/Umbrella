@@ -10,7 +10,7 @@ public class BumpBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -40,16 +40,10 @@ public class BumpBehaviour : MonoBehaviour
     //Sur collision entre l'ennemi et un Collider 2D
     private void OnCollisionEnter2D(Collision2D other)
     {
-        //Collsion avec le sol
-        if (ground == (ground | (1 << other.gameObject.layer)) && other.contacts[0].normal.y >= 0.9f)
+        //Tag Umbrella
+        if (other.gameObject.CompareTag("Umbrella"))
         {
-            myAnimator.SetBool("Bump", true);
-        }
-        else
-        {
-            ///Erreur régler : Object reference not set an instance of an object
-            myAnimator.SetBool("Bump", true);
-            myAnimator.SetBool("Bump", false);
+            myAnimator.SetTrigger("Bump");
         }
     }
 }

@@ -23,7 +23,6 @@ public class SceneLoader : MonoBehaviour
     /// <returns></returns>
     private IEnumerator LoadSceneCoroutine()
     {
-        Time.timeScale = 1f;
         // Making the loading screen appear
         var loadingScreenInstance = Instantiate(loadingScreen);
         // Making the loading screen persistent after we unloaded the scene
@@ -46,9 +45,10 @@ public class SceneLoader : MonoBehaviour
                 loadingAnimator.SetTrigger("Disapear");
                 // Make the new scene visible
                 loading.allowSceneActivation = true;
+                Time.timeScale = 1f;
             }
             // Wait for the end of the appearing animation before switching scenes
-            yield return new WaitForSeconds(currentAnimTime);
+            yield return new WaitForSecondsRealtime(currentAnimTime);
         }
     }
 }
